@@ -1,6 +1,9 @@
-{ config, pkgs, inputs,  ... }:
-
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
   # Allow unfree packages
 
   # List packages installed in system profile. To search, run:
@@ -46,6 +49,11 @@
     zoxide
     inputs.zen-browser.packages."${pkgs.system}".default
     figma-linux
+    alejandra
+    (lutris.override {
+        extraLibraries = pkgs : [];
+        extraPkgs = pkgs:[];
+    })
   ];
   programs.hyprland = {
     enable = true;

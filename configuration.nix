@@ -15,7 +15,16 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  
+
+   systemd.settings.Manager = {
+    DefaultLimitNOFILE = 524288;
+  };
+  security.pam.loginLimits = [{
+    domain = "yourusername";
+    type = "hard";
+    item = "nofile";
+    value = "524288";
+  }];
   networking.hostName = "nixos"; # Define your hostname.
   virtualisation.virtualbox.host.enable = true;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -168,6 +177,17 @@ users.extraGroups.vboxusers.members = [ "ea-nasir" ];
     XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_TYPE = "wayland";
     XDG_SESSION_DESKTOP = "Hyprland";
+    EDITOR = "nvim";
+    SUDO_EDITOR = "nvim";
+    SYSTEMD_EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    vimAlias = true;
+    viAlias = true;
   };
   # Enable Fish
   # Zoxide
