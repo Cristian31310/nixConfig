@@ -53,8 +53,8 @@
     figma-linux
     alejandra
     (lutris.override {
-        extraLibraries = pkgs : [];
-        extraPkgs = pkgs:[];
+      extraLibraries = pkgs: [];
+      extraPkgs = pkgs: [];
     })
     kdePackages. dolphin
     kdePackages.kio # needed since 25.11

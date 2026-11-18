@@ -1,30 +1,30 @@
-#truetruetruetruetruetruetrue Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-#TODO
-# Modulo aparte para las aplicaciones
-{ config, pkgs, inputs, lib, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./apps.nix
-    ];
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./apps.nix
+  ];
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-   systemd.settings.Manager = {
+  systemd.settings.Manager = {
     DefaultLimitNOFILE = 524288;
   };
-  security.pam.loginLimits = [{
-    domain = "yourusername";
-    type = "hard";
-    item = "nofile";
-    value = "524288";
-  }];
+  security.pam.loginLimits = [
+    {
+      domain = "yourusername";
+      type = "hard";
+      item = "nofile";
+      value = "524288";
+    }
+  ];
   networking.hostName = "nixos"; # Define your hostname.
   virtualisation.virtualbox.host.enable = true;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -73,7 +73,8 @@
       wireplumber.enable = true;
       jack.enable = true;
     };
-    
+
+    pulseaudio.enable = false; # Use Pipewire, the modern sound subsystem
     udisks2.enable = true;
 
     flatpak.enable = true;
@@ -87,92 +88,48 @@
     '';
 
     blueman.enable = true;
-
   };
 
   security.polkit.extraConfig = ''
-  polkit.addRule(function(action, subject) {
-    if (
-      action.id == "org.freedesktop.login1.reboot" ||
-      action.id == "org.freedesktop.login1.reboot-multiple-sessions" ||
-      action.id == "org.freedesktop.login1.power-off" ||
-      action.id == "org.freedesktop.login1.power-off-multiple-sessions" ||
+    polkit.addRule(function(action, subject) {
+      if (
+        action.id == "org.freedesktop.login1.reboot" ||
+        action.id == "org.freedesktop.login1.reboot-multiple-sessions" ||
+        action.id == "org.freedesktop.login1.power-off" ||
+        action.id == "org.freedesktop.login1.power-off-multiple-sessions" ||
 
-      action.id == "org.freedesktop.udisks2.filesystem-mount" ||
-      action.id == "org.freedesktop.udisks2.filesystem-mount-system" ||
-      action.id == "org.freedesktop.udisks2.filesystem-mount-other-seat"
+        action.id == "org.freedesktop.udisks2.filesystem-mount" ||
+        action.id == "org.freedesktop.udisks2.filesystem-mount-system" ||
+        action.id == "org.freedesktop.udisks2.filesystem-mount-other-seat"
 
-    ) {
-      // Allow users in the 'wheel' group to shutdown/reboot without password
-      if (subject.isInGroup("wheel")) {
-        return polkit.Result.YES;
+      ) {
+        // Allow users in the 'wheel' group to shutdown/reboot without password
+        if (subject.isInGroup("wheel")) {
+          return polkit.Result.YES;
+        }
       }
-    }
-    });
-'';
+      });
+  '';
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.eanasir = {
     isNormalUser = true;
     description = "ea-nasir";
-    extraGroups = [ "networkmanager" "wheel" "docker" "seat" "audio" "cdrom" ];
+    extraGroups = ["networkmanager" "wheel" "docker" "seat" "audio" "cdrom"];
     packages = with pkgs; [];
   };
-users.extraGroups.vboxusers.members = [ "ea-nasir" ];
+  users.extraGroups.vboxusers.members = ["ea-nasir"];
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   virtualisation.docker = {
     enable = true;
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  # environment.systemPackages = with pkgs; [
-  #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #   wget
-  #   neovim
-  #   git
-  #   btop
-  #   tmux
-  #   kitty
-  #   waybar
-  #   fastfetch
-  #   firefox
-  #   eza
-  #   gcc
-  #   awww
-  #   udiskie
-  #   dunst
-  #   obsidian
-  #   nodejs
-  #   lemurs
-  #   pavucontrol
-  #   wofi
-  #   discord
-  #   obsidian
-  #   hyprshot
-  #   vesktop
-  #   bluetui
-  #   polkit_gnome
-  #   live-server
-  #   unzip
-  #   vlc
-  #   libdvdcss
-  #   # okular
-  #   # nerdfonts
-  #   # spotify
-  #   # okular
-  #   # virtualbox
-  #   # oracle-ex
-  #   # mysql
-  #   zoxide
-  # ];
-  # fonts.fontconfig.enable = true;
   fonts.packages = with pkgs; [
     nerd-fonts.fantasque-sans-mono
   ];
-   nixpkgs.config.permittedInsecurePackages = [
-                "pnpm-10.29.2"
-              ];
+  nixpkgs.config.permittedInsecurePackages = [
+    "pnpm-10.29.2"
+  ];
   # nixpkgs.config.permittedInsecurePackages = [
   #  "pnpm-10.29.2"
   # ];
@@ -187,27 +144,13 @@ users.extraGroups.vboxusers.members = [ "ea-nasir" ];
     VISUAL = "nvim";
   };
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    vimAlias = true;
-    viAlias = true;
-  };
-  # Enable Fish
-  # Zoxide
-  # programs.zoxide.enable = true;
-  # programs.zoxide.enableBashIntegration= true;
-  # programs.zoxide.options = [
-  #   "--cmd cd"
-  # ];
- 
   # Set Display Manager
 
   # Install Hyprland and enable wayland and UWSM
   programs = {
     zoxide = {
       enable = true;
-      enableBashIntegration= true;
+      enableBashIntegration = true;
     };
     hyprland = {
       enable = true;
@@ -216,9 +159,9 @@ users.extraGroups.vboxusers.members = [ "ea-nasir" ];
     };
     fish = {
       enable = true;
-      interactiveShellInit = '' set -g fish_greeting "" '';
+      interactiveShellInit = ''set -g fish_greeting "" '';
       shellAliases = {
-        cd="z";
+        cd = "z";
       };
     };
     steam = {
@@ -226,15 +169,33 @@ users.extraGroups.vboxusers.members = [ "ea-nasir" ];
     };
     gamemode.enable = true;
     nix-ld.enable = true;
-    yazi = {
+    # yazi = {
+    #   enable = true;
+    #   # Aquí puedes definir tu configuración
+    #   plugins = {
+    #     inherit (pkgs.yaziPlugins) mount;
+    #   };
+    #   settings = {
+    #     keymap = lib.importTOML ./yazi/keymap.toml;
+    #   };
+    # };
+
+    git = {
       enable = true;
-      # Aquí puedes definir tu configuración
-      plugins = {
-       inherit (pkgs.yaziPlugins) mount;
+      config = {
+        user = {
+          name = "Cristian31310";
+          email = "cristian.martin.almendros@gmail.com";
+        };
+        init.defaultBranch = "main";
       };
-      settings = {
-        keymap = lib.importTOML ./yazi/keymap.toml;
-      };
+    };
+
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      vimAlias = true;
+      viAlias = true;
     };
   };
 
@@ -246,24 +207,21 @@ users.extraGroups.vboxusers.members = [ "ea-nasir" ];
     shell = pkgs.fish;
   };
   # Enable audio
-  services.pulseaudio.enable = false; # Use Pipewire, the modern sound subsystem
   security.rtkit.enable = true; # Enable RealtimeKit for audio purposes
 
   # sound.enable = true;
   # Pulse audio
   hardware = {
 
-    pulseaudio.enable = false;
-
     bluetooth = {
       enable = true;
       powerOnBoot = true;
 
       settings = {
-    	General = {
-      	  Experimental = true;
-      	  FastConnectable = true;
-    	};
+        General = {
+          Experimental = true;
+          FastConnectable = true;
+        };
 
         Policy = {
           AutoEnable = true;
@@ -271,16 +229,6 @@ users.extraGroups.vboxusers.members = [ "ea-nasir" ];
       };
     };
   };
-  # hardware.pulseaudio.support32Bit = true;
-
-  # Enable Bluetooth
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
 
   # List services that you want to enable:
 
@@ -288,7 +236,7 @@ users.extraGroups.vboxusers.members = [ "ea-nasir" ];
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 5501 8080 3307];
+  networking.firewall.allowedTCPPorts = [5501 8080 3307];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
@@ -302,30 +250,6 @@ users.extraGroups.vboxusers.members = [ "ea-nasir" ];
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
 
-	#  programs.neovim = {
-	#    enable = true;
-	#    plugins = with pkgs.vimPlugins; [
-	#      (nvim-treesitter.withPlugins (plugins: with plugins;[
-	#        nix
-	# lua
-	#        bash
-	#        html
-	#        css
-	#        javascript
-	#        json
-	#        lua
-	#        markdown
-	#        markdown_inline
-	#        python
-	#        query
-	#        regex
-	#        tsx
-	#        typescript
-	#        vim
-	#        yaml
-	#
-	#      ]))
-	#    ];
-	#  };
   system.stateVersion = "25.11"; # Did you read the comment?
+  # stdenv.hostPlatform.system.stateVersion = "25.11"; # Did you read the comment?
 }
