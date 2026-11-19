@@ -23,7 +23,9 @@
         ./hardware-configuration.nix
         ./configuration.nix
         ./apps.nix
-
+        ./programs.nix
+	./security.nix
+    	./servicios.nix
         {
           _module.args = {
             inherit inputs;
