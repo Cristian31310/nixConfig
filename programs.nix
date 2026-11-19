@@ -56,5 +56,7 @@
       vimAlias = true;
       viAlias = true;
     };
+
+    niri.enable = true;
   };
 }
