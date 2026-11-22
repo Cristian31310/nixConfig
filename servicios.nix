@@ -10,6 +10,8 @@
         layout = "es";
         variant = "dvorak";
       };
+
+      videoDrivers = ["nvidia"];
     };
 
     pipewire = {
@@ -25,7 +27,7 @@
     udisks2.enable = true;
 
     flatpak.enable = true;
-
+    
     displayManager.lemurs.enable = true;
 
     udev.enable = true;

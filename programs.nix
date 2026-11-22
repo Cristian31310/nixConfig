@@ -59,4 +59,5 @@
 
     niri.enable = true;
   };
+
 }

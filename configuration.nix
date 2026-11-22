@@ -87,6 +87,18 @@
 
   hardware = {
     enableAllFirmware = true;
+    graphics = {
+        enable = true;
+        enable32Bit = true;
+    };
+
+    nvidia = {
+        modesetting.enable = true;
+        open = true;
+        powerManagement.enable = false;
+        branch = "legacy_580";
+      };
+
     bluetooth = {
       enable = true;
       powerOnBoot = true;

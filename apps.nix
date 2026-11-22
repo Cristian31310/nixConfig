@@ -55,7 +55,9 @@
     alejandra
     (lutris.override {
       extraLibraries = pkgs: [];
-      extraPkgs = pkgs: [];
+      extraPkgs = pkgs: [
+        gamemode
+      ];
     })
     kdePackages. dolphin
     kdePackages.kio # needed since 25.11
@@ -66,6 +68,7 @@
     bat
     impala
     swaylock
+    mangohud
   ];
 
   programs.hyprland = {
