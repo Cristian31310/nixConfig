@@ -4,8 +4,7 @@
   inputs,
   lib,
   ...
-}:{
-
+}: {
   programs = {
     zoxide = {
       enable = true;
@@ -59,5 +58,4 @@
 
     niri.enable = true;
   };
-
 }

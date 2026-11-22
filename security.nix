@@ -3,8 +3,7 @@
   pkgs,
   inputs,
   ...
-}:{
-
+}: {
   security.pam.loginLimits = [
     {
       domain = "yourusername";

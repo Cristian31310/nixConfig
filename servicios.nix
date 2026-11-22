@@ -3,7 +3,7 @@
   pkgs,
   inputs,
   ...
-}:{
+}: {
   services = {
     xserver = {
       xkb = {
@@ -27,7 +27,7 @@
     udisks2.enable = true;
 
     flatpak.enable = true;
-    
+
     displayManager.lemurs.enable = true;
 
     udev.enable = true;
