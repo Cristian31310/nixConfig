@@ -2,27 +2,67 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }: {
-  services.xserver.videoDrivers = ["nvidia"];
-  hardware = {
-    graphics = {
-      enable = true;
-      enable32Bit = true;
-    };
+  options = {
+    nvidia.enable = lib.mkEnableOption "enable nvidia";
+    nvidia.open = lib.mkEnableOption "enables nvidia open drivers";
+    nvidia.enableOffload = lib.mkEnableOption "enables offload";
+    nvidia.enablePManagment = lib.mkEnableOption "enables graphic power managment";
+  };
+  
+  config = lib.mkIf config.nvidia.enable {
+    services.xserver.videoDrivers = ["nvidia"];
 
-    nvidia = {
-      modesetting.enable = true;
-      open = false;
-      powerManagement.enable = false;
-      branch = "legacy_580";
-      prime = {
-        offload = {
-          enable = true;
-          enableOffloadCmd = true;
+    hardware = {
+      graphics = {
+        enable = true;
+        enable32Bit = true;
+      };
+
+      nvidia = {
+        modesetting.enable = true;
+        open = false;
+        powerManagement.enable = false;
+        branch = "legacy_580";
+        prime = {
+          offload = {
+            enable = false;
+            enableOffloadCmd = false;
+          };
+          intelBusId = "PCI:0:2:0";
+          nvidiaBusId = "PCI:1:0:0";
         };
-        intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:1:0:0";
+      };
+    };
+  };
+
+  config = lib.mkIf config.nvidia.enable {
+    hardware = {
+      nvidia = {
+        open = true;
+      };
+    };
+  };
+
+  config = lib.mkIf config.nvidia.enablePManagment {
+    nvidia = {
+      powerManagement.enable = true;
+    };
+  };
+
+  config = lib.mkIf config.nvidia.enableOffload {
+      nvidia = {
+        prime = {
+          offload = {
+            enable = true;
+            enableOffloadCmd = true;
+          };
+
+          intelBusId = "PCI:0:2:0";
+          nvidiaBusId = "PCI:1:0:0";
+        };
       };
     };
   };

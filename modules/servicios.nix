@@ -10,8 +10,6 @@
         layout = "es";
         variant = "dvorak";
       };
-
-      videoDrivers = ["nvidia"];
     };
 
     pipewire = {
