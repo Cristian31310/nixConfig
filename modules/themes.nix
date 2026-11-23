@@ -13,7 +13,7 @@
     lxappearance # GTK2/3 theme switcher (X11)
     libsForQt5.qt5ct
     kdePackages.qt6ct
-    libsForQt5.kvantum
+    # libsForQt5.kvantum
   ];
 
   # Make Qt apps discover themes and use qt5ct/qt6ct or gtk

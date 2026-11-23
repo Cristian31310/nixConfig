@@ -69,6 +69,7 @@
     impala
     swaylock
     mangohud
+    gnome-themes-extra
   ];
 
   programs.hyprland = {

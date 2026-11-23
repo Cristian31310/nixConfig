@@ -8,11 +8,12 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./apps.nix
-    ./programs.nix
-    ./security.nix
-    ./servicios.nix
-    ./themes.nix
+    ./modules/modules.nix
+    # ./apps.nix
+    # ./programs.nix
+    # ./security.nix
+    # ./servicios.nix
+    # ./themes.nix
   ];
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
