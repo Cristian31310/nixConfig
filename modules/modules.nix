@@ -12,6 +12,4 @@
     ./themes.nix
     ./nvidia.nix
   ];
-  
-  nvidia.enable = true;
 }
