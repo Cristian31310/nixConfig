@@ -4,7 +4,7 @@
   inputs,
   ...
 }: {
-  services.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = ["nvidia"];
   hardware = {
     graphics = {
       enable = true;

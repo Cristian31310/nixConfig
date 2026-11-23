@@ -20,7 +20,6 @@
     kitty
     waybar
     fastfetch
-    firefox
     eza
     gcc
     awww
@@ -31,7 +30,7 @@
     lemurs
     pavucontrol
     wofi
-    discord
+    # discord
     obsidian
     hyprshot
     vesktop
@@ -41,13 +40,8 @@
     unzip
     vlc
     libdvdcss
-    # okular
-    # nerdfonts
     # spotify
     # okular
-    # virtualbox
-    # oracle-ex
-    # mysql
     zoxide
     inputs.zen-browser.packages."${pkgs.system}".default
     inputs.firefox.packages.${pkgs.stdenv.hostPlatform.system}.firefox-nightly-bin
