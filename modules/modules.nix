@@ -9,5 +9,6 @@
     ./security.nix
     ./servicios.nix
     ./themes.nix
+    ./nvidia.nix
   ];
 }
