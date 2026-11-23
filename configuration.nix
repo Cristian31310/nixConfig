@@ -12,6 +12,7 @@
     ./programs.nix
     ./security.nix
     ./servicios.nix
+    ./themes.nix
   ];
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
