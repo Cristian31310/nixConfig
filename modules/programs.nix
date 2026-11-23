@@ -34,7 +34,7 @@
         inherit (pkgs.yaziPlugins) mount;
       };
       settings = {
-        keymap = lib.importTOML ./yazi/keymap.toml;
+        keymap = lib.importTOML ./../yazi/keymap.toml;
       };
     };
 

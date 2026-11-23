@@ -22,10 +22,7 @@
       modules = [
         ./hardware-configuration.nix
         ./configuration.nix
-        ./apps.nix
-        ./programs.nix
-        ./security.nix
-        ./servicios.nix
+        ./modules/modules.nix
         {
           _module.args = {
             inherit inputs;
