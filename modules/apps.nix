@@ -64,6 +64,10 @@
     swaylock
     mangohud
     gnome-themes-extra
+    python3
+    cargo
+    _7zz
+    _7zz-rar
   ];
 
   programs.hyprland = {
