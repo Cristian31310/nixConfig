@@ -31,7 +31,7 @@
     pavucontrol
     wofi
     # discord
-    obsidian
+    # obsidian
     hyprshot
     vesktop
     bluetui

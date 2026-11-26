@@ -31,11 +31,12 @@
 
   networking.hostName = "nixos"; # Define your hostname.
   virtualisation.virtualbox.host.enable = true;
-
+  networking.useDHCP = lib.mkDefault true;
+  services.openssh.enable = true;
   # Enable networking
   networking.networkmanager.enable = true;
 
-  networking.firewall.allowedTCPPorts = [5501 8080 3307];
+  networking.firewall.allowedTCPPorts = [5501 8080 3307 80];
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
 
