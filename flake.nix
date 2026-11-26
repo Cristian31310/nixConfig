@@ -15,19 +15,11 @@
     ...
   } @ inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      # system = "x86_64-linux";
-      # stdenv.hostPlatform.system = "x86_64-linux";
       system = "x86_64-linux";
-      # specialArgs = { inherit inputs; };
+      specialArgs = { inherit inputs; };
       modules = [
-        ./hardware-configuration.nix
-        ./configuration.nix
+        ./hosts/ea-nasir/configuration.nix
         ./modules/modules.nix
-        {
-          _module.args = {
-            inherit inputs;
-          };
-        }
       ];
     };
   };
