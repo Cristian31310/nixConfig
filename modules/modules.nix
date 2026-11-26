@@ -12,5 +12,6 @@
     ./themes.nix
     ./nvidia.nix
     ./bluetooth.nix
+    ./steam.nix
   ];
 }

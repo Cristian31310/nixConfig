@@ -15,15 +15,13 @@
       withUWSM = true;
       xwayland.enable = true;
     };
+    # java.enable = true;
     fish = {
       enable = true;
       interactiveShellInit = ''set -g fish_greeting "" '';
       shellAliases = {
         cd = "z";
       };
-    };
-    steam = {
-      enable = true;
     };
     gamemode.enable = true;
     nix-ld.enable = true;

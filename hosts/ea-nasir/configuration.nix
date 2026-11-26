@@ -19,6 +19,7 @@ in
 
   bluetooth.enable = true;
 
+  steam.enable = true;
   users.users.eve.isNormalUser = true;
 
   # Bootloader.
