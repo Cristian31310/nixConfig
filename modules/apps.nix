@@ -43,7 +43,7 @@
     # spotify
     # okular
     zoxide
-    inputs.zen-browser.packages."${pkgs.system}".default
+    inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
     inputs.firefox.packages.${pkgs.stdenv.hostPlatform.system}.firefox-nightly-bin
     figma-linux
     alejandra

@@ -10,15 +10,10 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./modules/modules.nix
-    # ./apps.nix
-    # ./programs.nix
-    # ./security.nix
-    # ./servicios.nix
-    # ./themes.nix
   ];
 
   nvidia.enable = true;
-  
+  nvidia.open = true;
   users.users.eve.isNormalUser = true;
 
   # Bootloader.
