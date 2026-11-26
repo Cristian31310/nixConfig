@@ -9,7 +9,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./modules/modules.nix
+    ../../modules/modules.nix
   ];
 
   nvidia.enable = true;
@@ -24,7 +24,7 @@
     DefaultLimitNOFILE = 524288;
   };
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "ea-nasir"; # Define your hostname.
   virtualisation.virtualbox.host.enable = true;
   networking.useDHCP = lib.mkDefault true;
   services.openssh.enable = true;
