@@ -48,6 +48,9 @@
           name = "Cristian31310";
           email = "cristian.martin.almendros@gmail.com";
         };
+        safe = {
+          directory = "/home/eanasir/.config/nixos/";
+        };
         init.defaultBranch = "main";
       };
     };

@@ -11,5 +11,6 @@
     ./servicios.nix
     ./themes.nix
     ./nvidia.nix
+    ./bluetooth.nix
   ];
 }

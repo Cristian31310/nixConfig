@@ -5,6 +5,8 @@
   lib,
   ...
 }:
+let EDITOR = "nvim";
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -14,6 +16,9 @@
 
   nvidia.enable = true;
   nvidia.open = true;
+
+  bluetooth.enable = true;
+
   users.users.eve.isNormalUser = true;
 
   # Bootloader.
@@ -40,7 +45,6 @@
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "es_ES.UTF-8";
-    # ./apps.nix
     LC_IDENTIFICATION = "es_ES.UTF-8";
     LC_MEASUREMENT = "es_ES.UTF-8";
     LC_MONETARY = "es_ES.UTF-8";
@@ -70,44 +74,21 @@
     enable = true;
   };
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.fantasque-sans-mono
-  ];
-
   nixpkgs.config.permittedInsecurePackages = [
     "pnpm-10.29.2"
   ];
 
   environment.variables = {
-    GTK_THEME = "Adwaita-dark";
     XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_TYPE = "wayland";
     XDG_SESSION_DESKTOP = "Hyprland";
-    EDITOR = "nvim";
-    SUDO_EDITOR = "nvim";
-    SYSTEMD_EDITOR = "nvim";
-    VISUAL = "nvim";
+    EDITOR = EDITOR;
+    SUDO_EDITOR = EDITOR;
+    SYSTEMD_EDITOR = EDITOR;
+    VISUAL = EDITOR;
   };
 
-  hardware = {
-    enableAllFirmware = true;
-
-    bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-
-      settings = {
-        General = {
-          Experimental = true;
-          FastConnectable = true;
-        };
-
-        Policy = {
-          AutoEnable = true;
-        };
-      };
-    };
-  };
+  hardware.enableAllFirmware = true;
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
